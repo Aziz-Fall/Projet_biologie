@@ -43,8 +43,8 @@ double get_distance_nucleotide(char nucleotide_1, char nucleotide_2, Distance d)
 
 int hacher(char s) 
 {
-	int accum = 0;
-		accum += (unsigned) (s & 0x0F);  
-        accum <<= 1;      
-	return ((accum)%5);
+	int var_hashed = 0;
+		var_hashed += (unsigned) (s & 0x0F);  
+        var_hashed <<= 1;      
+	return ((var_hashed)%5);
 }
