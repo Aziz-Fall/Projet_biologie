@@ -37,7 +37,10 @@ char *read_row(FILE *file, char *string, int size)
 //Retourne le caractère lu s'il est différent de EOF.
 char read_char(FILE* file)
 {
-    return fgetc(file);
+    int c = getc(file);
+    if(c == EOF)
+        return -1;
+    return c;
 }
 
 //Ferme le fichier ouvert.

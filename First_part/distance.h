@@ -7,15 +7,9 @@
 #define NOMBER_NUCLEOTIDES 5
 
 
-typedef struct Pair_sequence
-{
-    char nucleotide;
-    float distance_nucleotide[NOMBER_NUCLEOTIDES];
-}Pair_sequence;
-
 typedef struct Distance
 {
-    Pair_sequence *tab[NOMBER_NUCLEOTIDES];  
+    int tab[5][6];  
 }Distance;
 
 Distance creat();

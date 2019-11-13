@@ -3,8 +3,8 @@
 int main(void)
 {
     FILE *file = open_file("distance_nucleotide.data", "r");
-    
-    printf("le nombre de ligne du fichier : %d.\n", nomber_row(file));
+    Distance d;
+    set_distance(d);
     
     close_file(file);
 
