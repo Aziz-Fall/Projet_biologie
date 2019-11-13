@@ -5,15 +5,19 @@
 
 #define  MODE_READ  "r"
 #define NOMBER_NUCLEOTIDES 5
+#define LENGTH_DISTANCE_NUCLEOTIDE 3
+#define NOMBER_DISTANCE_NUCLEOTIDE 26 
+
 
 
 typedef struct Distance
 {
-    int tab[5][6];  
+    double tab[NOMBER_NUCLEOTIDES][NOMBER_DISTANCE_NUCLEOTIDE];  
 }Distance;
 
-Distance creat();
+Distance creatAndInit();
 Distance set_distance(Distance);
-float get_distance_nucleotide(char, char);
+int hacher(char s);
+double get_distance_nucleotide(char, char, Distance);
 
 #endif

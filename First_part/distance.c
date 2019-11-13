@@ -1,39 +1,50 @@
 #include "distance.h"
 
 //Initialiser et retourner la distance crée.
-Distance creat()
+Distance creatAndInit()
 {
-    //Initialiser une distance
-    //Retourner la distance.
+    Distance d;
+    return set_distance(d);
 }
 
 Distance set_distance(Distance d)
 {
     FILE *file = open_file("distance_nucleotide.data", MODE_READ);
-    char *string = malloc(sizeof(3));
-    double tab[21];
-    int i = 0;
-
+    double tab[NOMBER_DISTANCE_NUCLEOTIDE];
+    char *string = malloc(sizeof(LENGTH_DISTANCE_NUCLEOTIDE));
+    
     if(is_null(string))
     {
         fprintf(stderr, "Cant set distance.\n");
         return d;
     }
-
-    while(!is_null( string = read_row(file, string, 3)))
+    int i = 0;
+    
+    while((string = read_row(file, string, NOMBER_DISTANCE_NUCLEOTIDE)) != NULL)
+    {
+        string[2] = '\0';
         tab[i++] = atof(string);
+    }
+    i = 0;
+    for(int row = 0; row < NOMBER_NUCLEOTIDES; row++)
+    {
+        for (int col = 0; col < NOMBER_NUCLEOTIDES; col++)
+            d.tab[row][col] = (tab[i++]*0.1);   
+    }
 
-    for(int i = 0; i < 21; i++)
-        printf("%f\n", tab[i]);
-    //Remplire les distances des nucléotides
-    //Retourne la distance.
     return d;
 }
 
-float get_distance_nucleotide(char nucleotide_1, char nucleotide_2)
+double get_distance_nucleotide(char nucleotide_1, char nucleotide_2, Distance d)
 {
-    float d;
-    //Récupérer une distance dans le tableau de nuclétide.
-    //Retrourne La distance récupérée.
-    return d;
+    int row = hacher(nucleotide_1), col = hacher(nucleotide_2);
+    return d.tab[row][col];
+}
+
+int hacher(char s) 
+{
+	int accum = 0;
+		accum += (unsigned) (s & 0x0F);  
+        accum <<= 1;      
+	return ((accum)%5);
 }

@@ -26,10 +26,7 @@ char *read_row(FILE *file, char *string, int size)
     string = fgets(string, size, file);
 
     if(is_null(string))
-    {
-        fprintf(stderr, "Cant read file \n");
         return NULL;
-    }
 
     return string;
 }
