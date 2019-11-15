@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define  MODE_READ  "r"
 #define  MODE_WRITE "w"
