@@ -1,14 +1,17 @@
 run : first_main
 	./first_main 
 
-first_main: first_main.o sequence.o fileManager.o
+first_main: first_main.o sequence.o distance.o fileManager.o
 	gcc -o first_main *.o -Wall -g 
 
 first_main.o: first_main.c
 	gcc -c first_main.c
 
-sequence.o: sequence.c sequence.h
+distance.o: distance.c distance.h
 	gcc -c sequence.c
+
+distance.o: distance.c distance.h
+	gcc -c distance.c
 
 fileManager.o: fileManager.c fileManager.h
 	gcc -c fileManager.c
