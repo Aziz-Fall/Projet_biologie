@@ -2,6 +2,7 @@
 #define __DISTANCE__H__
 
 #include "sequence.h"
+#include "list.h"
 
 #define  MODE_READ  "r"
 #define BLANC '_'
@@ -11,15 +12,21 @@
 
 
 
-typedef struct Distance
+typedef struct Distance_Nucleotide
 {
     double tab[NOMBER_NUCLEOTIDES][NOMBER_DISTANCE_NUCLEOTIDE];  
+}D_Nucleotide;
+
+typedef struct Distance
+{
+    List list[NOMBER_SEQUENCES];
 }Distance;
 
-Distance creat_and_init();
-Distance set_distance(Distance);
+D_Nucleotide creat_and_init();
+D_Nucleotide set_distance(D_Nucleotide);
 int hacher(char s);
-double get_distance_nucleotide(char, char, Distance);
-double first_distance(Sequence, Sequence, Distance);//D1
+double get_distance_nucleotide(char, char, D_Nucleotide);
+double first_distance(Sequence, Sequence, D_Nucleotide);//D1
+Distance distance(Sequence s[],  D_Nucleotide);
 
 #endif

@@ -1,10 +1,11 @@
 #include "distance.h"
+#include "list.h"
 
 int main(void)
-{   
+{  
     //Déclaration des variables.
     FILE *f = open_file("sequences_ADN.data", MODE_READ);
-    Distance d = creat_and_init();
+    D_Nucleotide d = creat_and_init();
     Sequence sequence[NOMBER_SEQUENCES];
 
     printf("###########################################################\n");
@@ -16,7 +17,12 @@ int main(void)
 
     printf("###########################################################\n");
 
-    printf("dis: %.1f\n", first_distance(sequence[2], sequence[3], d));
+    printf("dis: %.1f\n", first_distance(sequence[17], sequence[9], d));
+
+    printf("###########################################################\n");
+
+    Distance dist = distance(sequence, d);
+    print_list(dist.list[19]);
 
     printf("###########################################################\n");
 

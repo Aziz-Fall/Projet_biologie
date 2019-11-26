@@ -1,14 +1,14 @@
 #include "distance.h"
 
 //Initialiser et retourner la distance crée.
-Distance creat_and_init()
+D_Nucleotide creat_and_init()
 {
-    Distance d;
+    D_Nucleotide d;
     return set_distance(d);
 }
 
 //Remplit le tableau de distance.
-Distance set_distance(Distance d)
+D_Nucleotide set_distance(D_Nucleotide d)
 {
     FILE *file = open_file("distance_nucleotide.data", MODE_READ);
     double tab[NOMBER_DISTANCE_NUCLEOTIDE];
@@ -37,7 +37,7 @@ Distance set_distance(Distance d)
 }
 
 //Retourne la distance de deux nucléotides.
-double get_distance_nucleotide(char nucleotide_1, char nucleotide_2, Distance d)
+double get_distance_nucleotide(char nucleotide_1, char nucleotide_2, D_Nucleotide d)
 {
     int row = hacher(nucleotide_1), col = hacher(nucleotide_2);
     return d.tab[row][col];
@@ -53,7 +53,7 @@ int hacher(char s)
 }
 
 //Retourne la distance d'édition de deux séquences.D1
-double first_distance(Sequence first, Sequence second, Distance d)//D1
+double first_distance(Sequence first, Sequence second, D_Nucleotide d)//D1
 {
     double dist_sequence = 0;
     int var = compare_sequence(first, second), max_length = first.length, i = 0;
@@ -73,4 +73,22 @@ double first_distance(Sequence first, Sequence second, Distance d)//D1
         dist_sequence += get_distance_nucleotide(first.tab_nucleotide[i++], BLANC, d);
 
     return dist_sequence;
+}
+
+
+Distance distance(Sequence s[],  D_Nucleotide d) 
+{
+    Distance distance;
+
+    for(int row = 0; row < (NOMBER_SEQUENCES); row++)
+    {
+        List l = creat_list();
+
+        for(int col = 0; col < NOMBER_SEQUENCES; col++)
+            l = insert(l, col, first_distance(s[row], s[col], d));
+        
+        distance.list[row] = l;
+    }
+
+    return distance;
 }
