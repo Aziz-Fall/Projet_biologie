@@ -2,7 +2,7 @@
 
 Element *creat_element(int index, double d_edition)
 {
-    Element *e = malloc(sizeof(Element *));
+    Element *e = malloc(sizeof(Element));
     if(is_null(e))
     {
         fprintf(stderr, "Cant creat element\n");
@@ -48,14 +48,13 @@ List insert(List l, int index, int d_edition)
 
 List delete_element(List l)
 {
-    Element *this = malloc(sizeof(Element *));
+    Element *this = malloc(sizeof(Element));
 
     if(is_null(this))
     {
         fprintf(stderr, "Cant delete element\n");
         return l;
     }
-    
     this = l;
     l = l->next;
     free(this);
@@ -65,7 +64,7 @@ List delete_element(List l)
 
 void free_list(List l)
 {
-    Element *this = malloc(sizeof(Element *));
+    Element *this = malloc(sizeof(Element));
 
     if(is_null(this))
         return;

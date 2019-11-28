@@ -28,5 +28,7 @@ int hacher(char s);
 double get_distance_nucleotide(char, char, D_Nucleotide);
 double first_distance(Sequence, Sequence, D_Nucleotide);//D1
 Distance distance(Sequence s[],  D_Nucleotide);
+void free_tab_list(Distance d);
+
 
 #endif

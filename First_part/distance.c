@@ -56,26 +56,33 @@ int hacher(char s)
 double first_distance(Sequence first, Sequence second, D_Nucleotide d)//D1
 {
     double dist_sequence = 0;
-    int var = compare_sequence(first, second), max_length = first.length, i = 0;
+    int var = compare_sequence(first, second), i = 0;
 
     if(var < 0)
     {
-        max_length = second.length;
-        for(i = 0; i < (max_length - 1); i++)
+        for(i = 0; i < first.length; i++)
             dist_sequence += get_distance_nucleotide(second.tab_nucleotide[i], first.tab_nucleotide[i], d);
-        while(i < (max_length - 1))
+
+        while(i < second.length)
             dist_sequence += get_distance_nucleotide(second.tab_nucleotide[i++], BLANC, d);
     }
+    else if(var > 0)
+    {
+        for(i = 0; i < second.length; i++)
+            dist_sequence += get_distance_nucleotide(first.tab_nucleotide[i], second.tab_nucleotide[i], d);
 
-    for(i = 0; i < (max_length - 1); i++)
-        dist_sequence += get_distance_nucleotide(first.tab_nucleotide[i], second.tab_nucleotide[i], d);
-     while(i < (max_length - 1))
-        dist_sequence += get_distance_nucleotide(first.tab_nucleotide[i++], BLANC, d);
+        while(i < first.length)
+            dist_sequence += get_distance_nucleotide(first.tab_nucleotide[i++], BLANC, d);
+    }
+    else 
+        for(i = 0; i < first.length; i++)
+            dist_sequence += get_distance_nucleotide(second.tab_nucleotide[i], first.tab_nucleotide[i], d);
+    
 
     return dist_sequence;
 }
 
-
+//Remplire le tableau de distance d'édition.
 Distance distance(Sequence s[],  D_Nucleotide d) 
 {
     Distance distance;
@@ -85,10 +92,18 @@ Distance distance(Sequence s[],  D_Nucleotide d)
         List l = creat_list();
 
         for(int col = 0; col < NOMBER_SEQUENCES; col++)
-            l = insert(l, col, first_distance(s[row], s[col], d));
+        {
+            if(row != col)
+                l = insert(l, col, first_distance(s[row], s[col], d));
+        }
         
         distance.list[row] = l;
     }
 
     return distance;
+}
+void free_tab_list(Distance d)
+{
+    for(int i = 0; i < NOMBER_SEQUENCES; i++)
+        free_list(d.list[i]);
 }

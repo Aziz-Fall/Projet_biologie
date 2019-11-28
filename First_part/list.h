@@ -6,7 +6,7 @@
 typedef struct Element
 {
     int index;
-    double   d_edition;
+    double d_edition;
     struct Element *next;
 }Element, *List;
 
