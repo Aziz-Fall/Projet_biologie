@@ -19,7 +19,7 @@ typedef struct Distance_Nucleotide
 
 typedef struct Distance
 {
-    List list[NOMBER_SEQUENCES];
+    List *list;
 }Distance;
 
 D_Nucleotide creat_and_init();

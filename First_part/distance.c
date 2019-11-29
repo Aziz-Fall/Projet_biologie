@@ -87,6 +87,14 @@ Distance distance(Sequence s[],  D_Nucleotide d)
 {
     Distance distance;
 
+    distance.list = malloc(NOMBER_SEQUENCES * sizeof(List));
+
+    if(is_null(distance.list))
+    {
+        fprintf(stderr, "Cant creat fill array distance.\n");
+        exit(EXIT_FAILURE);
+    }
+
     for(int row = 0; row < (NOMBER_SEQUENCES); row++)
     {
         List l = creat_list();
@@ -106,4 +114,6 @@ void free_tab_list(Distance d)
 {
     for(int i = 0; i < NOMBER_SEQUENCES; i++)
         free_list(d.list[i]);
+    
+    free(d.list);
 }

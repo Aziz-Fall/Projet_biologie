@@ -29,12 +29,13 @@ Family creat_family()
 
     return f;
 }
-
+//Vérifie si la famile est vide si oui retoune true sinon false.
 Bool is_empty_family(Family f)
 {
     return ((f.number_element == 0) ? true : false);
 }
 
+//Vérifie si le tableau de famille est vide si oui retoune true sinon false.
 Bool is_empty_tab_family(Tab_Family tab_f)
 {
     return ((tab_f.number_family == 0) ? true : false);
@@ -85,13 +86,11 @@ Family add_member(Family f, Sequence s)
 }
 
 //Initialiser un tableau de famille.
-Tab_Family init_tab_Family(Family f)
+Tab_Family init_tab_Family()
 {
     Tab_Family tab_f;
-    tab_f.f = (Family *)malloc(sizeof(Family));
+    tab_f.f = NULL;
     tab_f.number_family = 0;
-    tab_f.f[tab_f.number_family] = f;
-    tab_f.number_family++;
 
     return tab_f;
 }
@@ -118,6 +117,34 @@ double set_distance_min(double d)
     return d;
 }
 
+//Recherche une famille et retourne les familles trouvées dans un tableau. 
+Tab_Family reseach_family(Tab_Family tab_f, Distance tab_distance_edition, Sequence s[])
+{
+    for(int i = 0; i < NOMBER_SEQUENCES; i++)
+    {
+        int count = count_distance_min(tab_distance_edition.list[i]);
+        double min = d_edition_min(tab_distance_edition.list[i]);
+
+        if(count > MIN_MEMBER_FAMILY)
+        {
+            if(min < 10)
+            {
+                Family f = creat_family();
+                f = add_member(f, s[tab_distance_edition.list[i]->index]);
+                f.d_min = set_distance_min(min);
+
+                while(tab_distance_edition.list[i]->d_edition == min)
+                {
+                    f = add_member(f, s[tab_distance_edition.list[i]->index]);
+                    tab_distance_edition.list[i] = tab_distance_edition.list[i]->next;
+                } 
+
+                tab_f = add_family(tab_f, f);
+            }
+        }
+    }
+    return tab_f;
+}
 //Libére la mémoire allouer pour la famille.
 void free_family(Family f)
 {
