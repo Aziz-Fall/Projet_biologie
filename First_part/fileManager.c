@@ -23,12 +23,12 @@ FILE *open_file(char *name_file, char *mode)
 //Retourne la ligne lue.
 char *read_row(FILE *file, char *string, int size)
 {
-    string = fgets(string, size, file);
-
     if(is_null(string))
         return NULL;
+        
+    //fgets(string, size, file);
 
-    return string;
+    return fgets(string, size, file);
 }
 
 //Retourne le caractère lu s'il est différent de EOF.

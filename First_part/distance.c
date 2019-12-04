@@ -11,27 +11,21 @@ D_Nucleotide creat_and_init()
 D_Nucleotide set_distance(D_Nucleotide d)
 {
     FILE *file = open_file("distance_nucleotide.data", MODE_READ);
-    double tab[NOMBER_DISTANCE_NUCLEOTIDE];
-    char *string = malloc(sizeof(LENGTH_DISTANCE_NUCLEOTIDE));
-    
-    if(is_null(string))
-    {
-        fprintf(stderr, "Cant set distance.\n");
-        return d;
-    }
-    int i = 0;
-    
-    while((string = read_row(file, string, NOMBER_DISTANCE_NUCLEOTIDE)) != NULL)
-    {
-        string[2] = '\0';
-        tab[i++] = atof(string);
-    }
-    i = 0;
+
     for(int row = 0; row < NOMBER_NUCLEOTIDES; row++)
     {
         for (int col = 0; col < NOMBER_NUCLEOTIDES; col++)
-            d.tab[row][col] = (tab[i++]*0.1);   
+        {
+            char string[LENGTH_DISTANCE_NUCLEOTIDE];
+            if(!is_null(fgets(string, NOMBER_DISTANCE_NUCLEOTIDE, file)))
+            {
+               string[2] = '\0';
+               d.tab[row][col] = atof(string) * 0.1;
+            }
+        }  
     }
+
+    close_file(file);
 
     return d;
 }
@@ -87,7 +81,7 @@ Distance distance(Sequence s[],  D_Nucleotide d)
 {
     Distance distance;
 
-    distance.list = malloc(NOMBER_SEQUENCES * sizeof(List));
+   distance.list = malloc(NOMBER_SEQUENCES * sizeof(Element));
 
     if(is_null(distance.list))
     {

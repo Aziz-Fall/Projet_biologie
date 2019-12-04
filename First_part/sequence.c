@@ -7,7 +7,7 @@ Sequence creat_init_sequence(char *string)
 
     int size = (int)strlen(string) - 1;
 
-    s.tab_nucleotide = malloc(sizeof(char*)*size);
+    s.tab_nucleotide = malloc(sizeof(char)*size);
 
     if(size == 0 || is_null(s.tab_nucleotide))
     {
@@ -28,25 +28,15 @@ void assign_tab_sequences(Sequence s[], int nb_element, FILE *f)
 {
     for(int i = 0; i < nb_element; i++)
     {
-        char *string = malloc(sizeof(char*)*MAX_LENGTH);
+        char string[MAX_LENGTH];  
 
-        if(is_null(string))
-        {
-            fprintf(stderr, "Cant assign tab seqences.\n");
-            return;
-        }  
-
-        string = read_row(f, string, MAX_LENGTH);
-
-        if(is_null(string))
+        if(is_null(read_row(f, string, MAX_LENGTH)))
         {
             fprintf(stderr, "No sequence :File is empty.\n");
             return;
         }
 
         s[i] = creat_init_sequence(string);
-
-        free(string);
     }
 }
 

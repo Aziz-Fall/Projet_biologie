@@ -4,6 +4,7 @@
 Element *creat_element(int index, double d_edition)
 {
     Element *e = malloc(sizeof(Element));
+
     if(is_null(e))
     {
         fprintf(stderr, "Cant creat element\n");
@@ -34,34 +35,63 @@ void print_list(List l)
 
 }
 
-//Insérer un élement dans la liste.
-List insert(List l, int index, int d_edition)
+List insert_end(List l, int index, double d_edition)
 {
+    /*Element *tmp = l;
     Element *e = creat_element(index, d_edition);
 
-    if(is_null(l) || l->d_edition >= d_edition)
+    if(is_null(l))
+        return e;
+
+    for(; !is_null(tmp->next); tmp = tmp->next);
+    
+    tmp->next = e;*/
+
+    return l;
+}
+
+//Insérer un élement dans la liste.
+List insert(List l, int index, double d_edition)
+{
+    List tmp = l;
+    Element *e = creat_element(index, d_edition);
+
+    if(is_null(l))
+        return e;
+
+    //Insertion au début de la liste.
+    if(l->d_edition >= d_edition)
     {
         e->next = l;
         return e;
     }
+    //Insertion au milieu de la liste.
+    while((l->d_edition <= d_edition) && !is_null(l->next))
+    {
+        if(l->next->d_edition >= d_edition)
+        {
+            e->next = l->next;
+            l->next = e;
+            return tmp;
+        }
+        l = l->next;
+    }
 
-    l->next = insert(l->next, index, d_edition);
+    //Insertion au milieu ou fin de la liste.
+    if(is_null(l->next) && l->d_edition < d_edition)
+        l->next = e;
 
-    return l;
+    return tmp;
 }
 
 //Supprime un élement dans la liste.
 List delete_element(List l)
 {
-    Element *this = malloc(sizeof(Element));
+    Element *this;
 
-    if(is_null(this))
-    {
-        fprintf(stderr, "Cant delete element\n");
-        return l;
-    }
     this = l;
     l = l->next;
+
     free(this);
 
     return l;
@@ -70,10 +100,8 @@ List delete_element(List l)
 //Libére la mémoire allouer pour la liste.
 void free_list(List l)
 {
-    Element *this = malloc(sizeof(Element));
+    Element *this;
 
-    if(is_null(this))
-        return;
     while(!is_null(l))
     {
         this = l;
@@ -92,20 +120,21 @@ double d_edition_min(List l)
 int count_distance_min(List l)
 {
     int var = 0;
+    List tmp = l;
     if(is_null(l))
     {
         fprintf(stderr, "Cant count distance min.\n");
         return var;
     }
 
-    double min = d_edition_min(l);
+    double min = d_edition_min(tmp);
 
-    while(!is_null(l))
+    while(!is_null(tmp))
     {
-        if(l->d_edition == min)
+        if(tmp->d_edition == min)
         {
             ++var;
-            l = l->next;
+            tmp = tmp->next;
         }
         else 
             break;

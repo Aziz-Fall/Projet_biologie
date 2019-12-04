@@ -12,7 +12,7 @@ typedef struct Element
 
 List creat_list();
 void print_list(List l);
-List insert(List l, int index, int d_edition);
+List insert(List l, int index, double d_edition);
 List delete_element(List l);
 int count_distance_min(List l);
 void free_list(List l);

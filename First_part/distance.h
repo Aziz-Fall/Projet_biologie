@@ -14,7 +14,7 @@
 
 typedef struct Distance_Nucleotide
 {
-    double tab[NOMBER_NUCLEOTIDES][NOMBER_DISTANCE_NUCLEOTIDE];  
+    double tab[NOMBER_NUCLEOTIDES][NOMBER_NUCLEOTIDES];  
 }D_Nucleotide;
 
 typedef struct Distance
