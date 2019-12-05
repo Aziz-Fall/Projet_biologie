@@ -35,21 +35,6 @@ void print_list(List l)
 
 }
 
-List insert_end(List l, int index, double d_edition)
-{
-    /*Element *tmp = l;
-    Element *e = creat_element(index, d_edition);
-
-    if(is_null(l))
-        return e;
-
-    for(; !is_null(tmp->next); tmp = tmp->next);
-    
-    tmp->next = e;*/
-
-    return l;
-}
-
 //Insérer un élement dans la liste.
 List insert(List l, int index, double d_edition)
 {

@@ -18,12 +18,12 @@ Sequence *reallocate(Family f)
 Family creat_family()
 {
     Family f;
-    f.s = (Sequence *)malloc(sizeof(Sequence)*NUMBER_ELEMENT_DEFAULT);
-    if(is_null(f.s))
+    f.s = NULL;//(Sequence *)malloc(sizeof(Sequence)*NUMBER_ELEMENT_DEFAULT);
+    /*if(is_null(f.s))
     {
         fprintf(stderr, "Cant creat family.\n");
         exit(EXIT_FAILURE);
-    }
+    }*/
     f.number_element = 0;
     f.d_min = 0; 
 
@@ -53,7 +53,8 @@ void print_family(Family f)
     printf("|        MEMBERS FAMILY       |     LENTGH    |\n");
     printf("-----------------------------------------------\n");
     for(int i = 0; i < f.number_element; i++)
-        printf("|   %20s      |       %d      |\n", f.s[i].tab_nucleotide, f.s[i].length);
+        print_sequence(f.s[i], f.s[i].length);
+        //printf("|   %20s      |       %d      |\n", f.s[i].tab_nucleotide, f.s[i].length);
     printf("-----------------------------------------------\n");
     printf("| Members                             %2d      |\n", f.number_element);
     printf("| Distance d edition minimale        %2.1f      |\n", f.d_min);
@@ -70,17 +71,16 @@ void print_tab_family(Tab_Family tab_f)
 //Ajoute un membre dans la famille.
 Family add_member(Family f, Sequence s)
 {
-    if(f.number_element >= NUMBER_ELEMENT_DEFAULT)
+    f.s = (Sequence *)realloc(f.s, (f.number_element + 1)*sizeof(Sequence));
+
+    if(is_null(f.s))
     {
-        f.s = reallocate(f);
-        f.s[f.number_element] = s;
-        f.number_element++;
+        fprintf(stderr, "Cant realloc.\n");
+        exit(EXIT_FAILURE);
     }
-    else
-    {
-        f.s[f.number_element] = s;
-        f.number_element++;
-    }
+
+    f.s[f.number_element] = s;
+    f.number_element++;
     
     return f;
 }
@@ -133,10 +133,12 @@ Tab_Family reseach_family(Tab_Family tab_f, Distance tab_distance_edition, Seque
                 f = add_member(f, s[tab_distance_edition.list[i]->index]);
                 f.d_min = set_distance_min(min);
 
-                while(tab_distance_edition.list[i]->d_edition == min)
+                List tmp = tab_distance_edition.list[i];
+
+                while(tmp->d_edition == min)
                 {
-                    f = add_member(f, s[tab_distance_edition.list[i]->index]);
-                    tab_distance_edition.list[i] = tab_distance_edition.list[i]->next;
+                    f = add_member(f, s[tmp->index]);
+                    tmp = tmp->next;
                 } 
 
                 tab_f = add_family(tab_f, f);
@@ -161,4 +163,6 @@ void free_tab_family(Tab_Family tab_f)
         return;
     for(int i = 0; i < tab_f.number_family; i++)
         free_family(tab_f.f[i]);
+    
+    free(tab_f.f);
 }

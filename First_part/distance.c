@@ -10,7 +10,7 @@ D_Nucleotide creat_and_init()
 //Remplit le tableau de distance.
 D_Nucleotide set_distance(D_Nucleotide d)
 {
-    FILE *file = open_file("distance_nucleotide.data", MODE_READ);
+    FILE *file = open_file("distance_nucleotide.txt", MODE_READ);
 
     for(int row = 0; row < NOMBER_NUCLEOTIDES; row++)
     {
@@ -89,7 +89,7 @@ Distance distance(Sequence s[],  D_Nucleotide d)
         exit(EXIT_FAILURE);
     }
 
-    for(int row = 0; row < (NOMBER_SEQUENCES); row++)
+    for(int row = 0; row < NOMBER_SEQUENCES; row++)
     {
         List l = creat_list();
 
@@ -104,6 +104,7 @@ Distance distance(Sequence s[],  D_Nucleotide d)
 
     return distance;
 }
+
 void free_tab_list(Distance d)
 {
     for(int i = 0; i < NOMBER_SEQUENCES; i++)

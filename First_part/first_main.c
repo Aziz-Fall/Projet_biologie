@@ -4,8 +4,8 @@
 int main(void)
 {  
     //Déclaration des variables.
-    FILE *f = open_file("sequences_ADN.data", MODE_READ);
-    printf("%ld\n", sizeof(Element));
+    FILE *f = open_file("sequences_ADN.txt", MODE_READ);
+
     D_Nucleotide d = creat_and_init();
 
     Sequence sequence[NOMBER_SEQUENCES];
@@ -22,16 +22,16 @@ int main(void)
 
     printf("###########################################################\n");
     
-    //Tab_Family tab_f = init_tab_Family();
-    //Distance dist = distance(sequence, d);
-    //tab_f = reseach_family(tab_f, dist, sequence);
-    //print_tab_family(tab_f);
+    Tab_Family tab_f = init_tab_Family();
+    Distance dist = distance(sequence, d);
+    tab_f = reseach_family(tab_f, dist, sequence);
+    print_tab_family(tab_f);
 
 
     printf("###########################################################\n");
 
-    //free_tab_family(tab_f);
-    //free_tab_list(dist);
+    free_tab_family(tab_f);
+    free_tab_list(dist);
     free_tab_sequence(sequence, NOMBER_SEQUENCES);
     close_file(f);
     

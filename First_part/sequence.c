@@ -54,10 +54,12 @@ int compare_sequence(Sequence first, Sequence second)
 
 //Affiche la séquence passée en argument.
 void print_sequence(Sequence s, int nb_nucleotides)
-{   
+{ 
+    printf("|       ");  
     for(int i = 0; i < nb_nucleotides; i++)
         printf("%c", s.tab_nucleotide[i]);
-    printf("       L = %2d\n", nb_nucleotides);
+    printf("    |       %2d", nb_nucleotides);
+    printf("      |\n");
 
 }
 
