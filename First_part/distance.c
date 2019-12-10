@@ -26,7 +26,6 @@ D_Nucleotide set_distance(D_Nucleotide d)
     }
 
     close_file(file);
-
     return d;
 }
 

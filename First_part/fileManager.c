@@ -1,5 +1,14 @@
 #include "fileManager.h"
 
+//Affiche un message d'erreur s'il y'a des erreurs.
+void error(void *e, char *message)
+{
+    if(is_null(e))
+    {
+        fprintf(stderr, "%s:(\n", message);
+        exit(EXIT_FAILURE);
+    }
+}
 //Retourne true si l'argument est null sinon false.
 Bool is_null(void *arg)
 {
@@ -69,4 +78,89 @@ int nomber_row(FILE *file)
         if(c == '\n')
             ++nomber_rows;
     return nomber_rows;
+}
+
+//Ouvre un repertoire et le retourne
+DIR *open_directory(char *directory_name)
+{
+    DIR *d = opendir(directory_name);
+
+    if(is_null(d))
+    {
+        fprintf(stderr, "Cant open directory.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return d;
+}
+
+//Initialise le nom du fichier.
+File init_file(char *names)
+{
+    File f;
+    f.length = strlen(names) + 1;
+    f.name = (char*) malloc(sizeof(char)*f.length);
+    if(is_null(f.name))
+    {
+        fprintf(stderr, "Cant init file:(\n");
+        exit(EXIT_FAILURE);
+    }
+    for(int i = 0; i < f.length; i++)
+        f.name[i] = names[i];
+
+    return f;
+}
+
+//Initialise le tableau contenant le nom des fichiers.
+Tab_File init_tab_file()
+{
+    Tab_File t;
+
+    t.file = NULL;
+    t.number_file = 0;
+
+    return t;
+}
+
+
+//Assigne le tableau de fichier.
+Tab_File assigne_tab_file(char *name_directory)
+{
+    DIR *dire = open_directory(name_directory);
+    Tab_File tab = init_tab_file();
+
+    struct dirent *d;
+    d = readdir(dire);
+    while (!is_null(d))
+    {
+        if(strcmp(d->d_name, FULL_STOP) != 0  &&  strcmp(d->d_name, TWO_FULL_STOP) != 0)
+        {
+            File f = init_file(d->d_name);
+            tab.file = (File *)realloc(tab.file, sizeof(File)*(tab.number_file + 1));
+            error(tab.file, "Cant assign tab file");
+            tab.file[tab.number_file] = f;
+            tab.number_file++; 
+        }
+        d = readdir(dire);
+    } 
+    free(d);
+    free(dire);
+    return tab;    
+}
+
+//Libére la mémoire allouer pour stocker le nom d'un fichier.
+void free_file_sequence(File f)
+{
+    error(f.name, "Cant free file sequence");
+    free(f.name);
+}
+
+//libere le table de fichier allouer.
+void free_tab_file(Tab_File tab_f)
+{
+    error(tab_f.file, "Cant free tab file");
+    for(int i = 0; i < tab_f.number_file; i++)
+        free_file_sequence(tab_f.file[i]);
+    
+    free(tab_f.file);
 }

@@ -1,9 +1,32 @@
 #include "family.h"
 #include "list.h"
 
-int main(void)
+int main(int argc, char **argv)
 {  
-    //Déclaration des variables.
+    printf("###########################################################\n");
+
+    if(argc > 2 || argc == 1)
+    {
+        fprintf(stderr, "No directory!");
+        exit(EXIT_FAILURE);
+    }
+    
+    printf("argc: %d\n", argc);
+    printf("directory: %s\n", argv[argc - 1]);
+
+    Tab_File tab_f = init_tab_file();
+    tab_f = assigne_tab_file(argv[argc - 1]);
+    printf("file: %ld\n", sizeof(File));
+    printf("###########################################################\n");
+
+    for(int i = 0; i < tab_f.number_file; i++)
+        printf("file[%2d] = %s\n",i , tab_f.file[i].name);
+
+    printf("###########################################################\n");
+
+    free_tab_file(tab_f);
+    
+    /*//Déclaration des variables.
     FILE *f = open_file("sequences_ADN.txt", MODE_READ);
 
     D_Nucleotide d = creat_and_init();
@@ -37,7 +60,7 @@ int main(void)
     
     
 
-    //printf("###########################################################\n");
+    //printf("###########################################################\n");*/
 
     return EXIT_SUCCESS;
 }
