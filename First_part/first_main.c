@@ -1,8 +1,11 @@
 #include "family.h"
 #include "list.h"
+#include "alignement.h"
 
 int main(int argc, char **argv)
 { 
+    printf("###########################################################\n");
+    
     if(argc > 2 || argc == 1)
     {
         fprintf(stderr, "No directory!");
@@ -15,8 +18,24 @@ int main(int argc, char **argv)
 
     tab_file = assigne_tab_file(argv[argc - 1]);
     assign_tab_sequences(sequence, NOMBER_SEQUENCES, tab_file);
-
+    
+    Alignement al = init_alignement(sequence[2], sequence[2]);
+    print_alignement(al);
     printf("###########################################################\n");
+    al = aligne_sequence(al, sequence[4]);
+    al = aligne_sequence(al, sequence[10]);
+    al = aligne_sequence(al, sequence[15]);
+    al = aligne_sequence(al, sequence[19]);
+    al = aligne_sequence(al, sequence[4]);
+    al = aligne_sequence(al, sequence[10]);
+    al = aligne_sequence(al, sequence[15]);
+    al = aligne_sequence(al, sequence[19]);
+    print_alignement(al);
+    printf("###########################################################\n");
+    free_tab_position(al);
+    free_tab_file(tab_file);
+    free_tab_sequence(sequence, NOMBER_SEQUENCES);
+    /*printf("###########################################################\n");
     
     for(int i = 0; i < NOMBER_SEQUENCES; i++)
     {
@@ -29,7 +48,6 @@ int main(int argc, char **argv)
     Tab_Family tab_f = init_tab_Family();
     Distance dist = distance(sequence, d);
     tab_f = reseach_family(tab_f, dist, sequence);
-    print_list(dist.list[15]);
     print_tab_family(tab_f);
 
     printf("###########################################################\n");
@@ -39,7 +57,7 @@ int main(int argc, char **argv)
     free_tab_sequence(sequence, NOMBER_SEQUENCES);
     free_tab_file(tab_file);
 
-    printf("###########################################################\n");
+    printf("###########################################################\n");*/
 
     return EXIT_SUCCESS;
 }

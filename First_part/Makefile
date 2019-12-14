@@ -1,7 +1,7 @@
 run : first_main
 	valgrind ./first_main sequences_ADN
 
-first_main: first_main.o sequence.o distance.o fileManager.o family.o list.o
+first_main: first_main.o sequence.o distance.o fileManager.o family.o list.o alignement.o
 	gcc -o first_main *.o -Wall -g 
 
 first_main.o: first_main.c distance.h
@@ -12,6 +12,9 @@ sequence.o: sequence.c sequence.h
 
 distance.o: distance.c distance.h
 	gcc -c distance.c -g -Wall
+
+alignement.o: alignement.c alignement.h
+	gcc -c alignement.c -g -Wall
 
 fileManager.o: fileManager.c fileManager.h
 	gcc -c fileManager.c -g -Wall
