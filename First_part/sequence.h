@@ -18,7 +18,7 @@ typedef struct Sequence
 }Sequence;
 
 Sequence creat_init_sequence(char*);
-void assign_tab_sequences(Sequence s[], int nb_element, FILE *f);
+void assign_tab_sequences(Sequence s[], int nb_element, Tab_File tab_file);
 int compare_sequence(Sequence first, Sequence second);
 void print_sequence(Sequence s, int nb_nucleotides);
 void free_tab_sequence(Sequence s[], int nb_sequence);

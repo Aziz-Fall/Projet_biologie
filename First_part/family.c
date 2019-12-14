@@ -130,10 +130,11 @@ Tab_Family reseach_family(Tab_Family tab_f, Distance tab_distance_edition, Seque
             if(min < 10)
             {
                 Family f = creat_family();
-                f = add_member(f, s[tab_distance_edition.list[i]->index]);
+                f = add_member(f, s[i]);
                 f.d_min = set_distance_min(min);
 
                 List tmp = tab_distance_edition.list[i];
+
 
                 while(tmp->d_edition == min)
                 {

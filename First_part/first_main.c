@@ -2,40 +2,21 @@
 #include "list.h"
 
 int main(int argc, char **argv)
-{  
-    printf("###########################################################\n");
-
+{ 
     if(argc > 2 || argc == 1)
     {
         fprintf(stderr, "No directory!");
         exit(EXIT_FAILURE);
     }
-    
-    printf("argc: %d\n", argc);
-    printf("directory: %s\n", argv[argc - 1]);
 
-    Tab_File tab_f = init_tab_file();
-    tab_f = assigne_tab_file(argv[argc - 1]);
-    printf("file: %ld\n", sizeof(File));
-    printf("###########################################################\n");
-
-    for(int i = 0; i < tab_f.number_file; i++)
-        printf("file[%2d] = %s\n",i , tab_f.file[i].name);
-
-    printf("###########################################################\n");
-
-    free_tab_file(tab_f);
-    
-    /*//Déclaration des variables.
-    FILE *f = open_file("sequences_ADN.txt", MODE_READ);
-
+    Tab_File tab_file = init_tab_file();
+    Sequence sequence[NOMBER_SEQUENCES];
     D_Nucleotide d = creat_and_init();
 
-    Sequence sequence[NOMBER_SEQUENCES];
+    tab_file = assigne_tab_file(argv[argc - 1]);
+    assign_tab_sequences(sequence, NOMBER_SEQUENCES, tab_file);
 
     printf("###########################################################\n");
-
-    assign_tab_sequences(sequence, NOMBER_SEQUENCES, f);
     
     for(int i = 0; i < NOMBER_SEQUENCES; i++)
     {
@@ -48,19 +29,17 @@ int main(int argc, char **argv)
     Tab_Family tab_f = init_tab_Family();
     Distance dist = distance(sequence, d);
     tab_f = reseach_family(tab_f, dist, sequence);
+    print_list(dist.list[15]);
     print_tab_family(tab_f);
 
-
     printf("###########################################################\n");
-
+    //Libération de la mémoire allouer.
     free_tab_family(tab_f);
     free_tab_list(dist);
     free_tab_sequence(sequence, NOMBER_SEQUENCES);
-    close_file(f);
-    
-    
+    free_tab_file(tab_file);
 
-    //printf("###########################################################\n");*/
+    printf("###########################################################\n");
 
     return EXIT_SUCCESS;
 }

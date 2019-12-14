@@ -5,7 +5,7 @@ Sequence creat_init_sequence(char *string)
 {
     Sequence s;
 
-    int size = (int)strlen(string) - 1;
+    int size = (int)strlen(string);
 
     s.tab_nucleotide = malloc(sizeof(char)*size);
 
@@ -24,10 +24,13 @@ Sequence creat_init_sequence(char *string)
 }
 
 //Assign un tableau de sequence.
-void assign_tab_sequences(Sequence s[], int nb_element, FILE *f)
+void assign_tab_sequences(Sequence s[], int nb_element, Tab_File tab_file)
 {
     for(int i = 0; i < nb_element; i++)
     {
+        char name_file[MAX_LENGTH];
+        sprintf(name_file, "sequences_ADN/%s", tab_file.file[i].name);
+        FILE *f = open_file(name_file, MODE_READ);
         char string[MAX_LENGTH];  
 
         if(is_null(read_row(f, string, MAX_LENGTH)))
@@ -37,6 +40,8 @@ void assign_tab_sequences(Sequence s[], int nb_element, FILE *f)
         }
 
         s[i] = creat_init_sequence(string);
+
+        close_file(f);
     }
 }
 
