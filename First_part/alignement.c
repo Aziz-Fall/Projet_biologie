@@ -37,11 +37,13 @@ Pos add_position(Pos p, char c)
 {
 
     for(int i = 0; i < p.number_char; i++)
+    {
         if(p.tab[i].character == c)
         {
-                p.tab[i] = increment_freq(p.tab[i]);
-                return p;
+            p.tab[i] = increment_freq(p.tab[i]);
+            return p;
         }
+    }
 
     p.tab = (Freq *)realloc(p.tab, sizeof(Freq)*(p.number_char + 1));
     p.tab[p.number_char] = init_freq(c);
@@ -96,6 +98,7 @@ void free_tab_position(Alignement align)
     for (int i = 0; i < align.number; i++)
         free_tab_freq(align.tab[i]);  
 }
+
 void print_alignement(Alignement align)
 {
     if(align.number == 0)
@@ -105,4 +108,34 @@ void print_alignement(Alignement align)
     }
     for(int i = 0; i < align.number; i++)
         print_position(align.tab[i]);
+}
+
+char maxFrequence(Pos p)
+{
+    int max = p.tab[0].freq;
+    char c;
+    for(int i = 0;  i < p.number_char; i++)
+    {
+        if(p.tab[i].freq >= max)
+        {
+            max = p.tab[i].freq;
+            c = p.tab[i].character;
+        }
+    }
+    if(max == 1)
+        c = '.';
+    return c;
+}
+
+Sequence get_sequence_consensus(Alignement align)
+{
+    char string[MAX_LENGTH] = " ";
+
+    for(int i = 0; i < align.number; i++)
+    {
+        string[i] = maxFrequence(align.tab[i]);
+    }
+    
+    Sequence s = creat_init_sequence(string);
+    return s;
 }

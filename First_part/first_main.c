@@ -19,19 +19,16 @@ int main(int argc, char **argv)
     tab_file = assigne_tab_file(argv[argc - 1]);
     assign_tab_sequences(sequence, NOMBER_SEQUENCES, tab_file);
     
-    Alignement al = init_alignement(sequence[2], sequence[2]);
+    Alignement al = init_alignement(sequence[2], sequence[6]);
     print_alignement(al);
     printf("###########################################################\n");
     al = aligne_sequence(al, sequence[4]);
-    al = aligne_sequence(al, sequence[10]);
-    al = aligne_sequence(al, sequence[15]);
-    al = aligne_sequence(al, sequence[19]);
-    al = aligne_sequence(al, sequence[4]);
-    al = aligne_sequence(al, sequence[10]);
-    al = aligne_sequence(al, sequence[15]);
-    al = aligne_sequence(al, sequence[19]);
     print_alignement(al);
     printf("###########################################################\n");
+    Sequence sequenceConsensus = get_sequence_consensus(al);
+    print_sequence(sequenceConsensus, sequenceConsensus.length);
+    printf("###########################################################\n");
+    free(sequenceConsensus.tab_nucleotide);
     free_tab_position(al);
     free_tab_file(tab_file);
     free_tab_sequence(sequence, NOMBER_SEQUENCES);

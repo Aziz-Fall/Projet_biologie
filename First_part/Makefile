@@ -1,5 +1,5 @@
 run : first_main
-	valgrind ./first_main sequences_ADN
+	valgrind --track-origins=yes ./first_main sequences_ADN
 
 first_main: first_main.o sequence.o distance.o fileManager.o family.o list.o alignement.o
 	gcc -o first_main *.o -Wall -g 

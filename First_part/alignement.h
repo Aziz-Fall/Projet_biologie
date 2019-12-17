@@ -40,5 +40,6 @@ Alignement init_alignement(Sequence a, Sequence b);
 Alignement aligne_sequence(Alignement al, Sequence s);
 void free_tab_position(Alignement align);
 void print_alignement(Alignement align);
+Sequence get_sequence_consensus(Alignement align);
 
 #endif
