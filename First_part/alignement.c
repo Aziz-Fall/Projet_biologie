@@ -137,5 +137,6 @@ Sequence get_sequence_consensus(Alignement align)
     }
     
     Sequence s = creat_init_sequence(string);
+
     return s;
 }

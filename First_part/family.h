@@ -1,7 +1,7 @@
 #ifndef __FAMILY__H__
 #define __FAMILY__H__
 
-#include "sequence.h"
+#include "alignement.h"
 #include "distance.h"
 
 #define NUMBER_ELEMENT_DEFAULT 3
@@ -12,6 +12,7 @@ typedef struct Family
     int number_element;
     double d_min;
     Sequence *s;
+    Sequence consensus;
 
 }Family;
 
@@ -35,5 +36,6 @@ double set_distance_min(double d);
 Tab_Family init_tab_Family();
 Tab_Family add_family(Tab_Family tab_f, Family f);
 void free_tab_family(Tab_Family tab_f);
+Tab_Family findSequenceConsensus(Tab_Family tab_f);
 
 #endif

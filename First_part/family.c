@@ -18,12 +18,7 @@ Sequence *reallocate(Family f)
 Family creat_family()
 {
     Family f;
-    f.s = NULL;//(Sequence *)malloc(sizeof(Sequence)*NUMBER_ELEMENT_DEFAULT);
-    /*if(is_null(f.s))
-    {
-        fprintf(stderr, "Cant creat family.\n");
-        exit(EXIT_FAILURE);
-    }*/
+    f.s = NULL;
     f.number_element = 0;
     f.d_min = 0; 
 
@@ -56,9 +51,15 @@ void print_family(Family f)
         print_sequence(f.s[i], f.s[i].length);
         //printf("|   %20s      |       %d      |\n", f.s[i].tab_nucleotide, f.s[i].length);
     printf("-----------------------------------------------\n");
+    printf("|     SEQUENCES CONSENSUS     |     LENTGH    |\n");
+    printf("-----------------------------------------------\n");
+    print_sequence(f.consensus, f.consensus.length);
+    printf("-----------------------------------------------\n");
     printf("| Members                             %2d      |\n", f.number_element);
     printf("| Distance d edition minimale        %2.1f      |\n", f.d_min);
     printf("-----------------------------------------------\n");
+
+    printf("\n-----------------------------------------------------------\n\n");
 }
 
 //Affiche le contenu du tableau de famille.
@@ -155,6 +156,7 @@ void free_family(Family f)
         return;
     
     free(f.s);
+    free(f.consensus.tab_nucleotide);
 }
 
 //Libére la mémoire allouer pour le tableau de famille;
@@ -166,4 +168,22 @@ void free_tab_family(Tab_Family tab_f)
         free_family(tab_f.f[i]);
     
     free(tab_f.f);
+}
+
+//Chercher et retourner La séquence consensus de chaque Famille.
+Tab_Family findSequenceConsensus(Tab_Family tab_f)
+{
+    for(int i = 0; i < tab_f.number_family; i++)
+    {
+        if(tab_f.f[i].number_element > 1)
+        {
+            Alignement al = init_alignement(tab_f.f[i].s[0], tab_f.f[i].s[1]);
+            for(int j = 2; j < tab_f.f[i].number_element; j++)
+                al = aligne_sequence(al, tab_f.f[i].s[j]);
+            
+            tab_f.f[i].consensus = get_sequence_consensus(al);
+            free_tab_position(al);
+        }
+    }
+    return tab_f;
 }
