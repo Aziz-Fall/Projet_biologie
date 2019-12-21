@@ -1,45 +1,72 @@
+// ############################################
+//                  SOMMAIRE
+// ############################################
+//
+// 1. TYPES .......................... ligne  20
+// 2. GESTION D'ALIGNEMENT ........... ligne  46
+// 3. AFFICHAGE ...................... ligne  58
+// 4. LIBERATION DE LA MÉMOIRE ....... ligne  65
+//
+// #############################################
+
 #ifndef __ALIGNEMENT__H__
 #define __ALIGNEMENT__H__
 
 #include "sequence.h"
 
+// #####################################
+// 1. TYPES
+// #####################################
 
-#define MAX 20
-#define min(a, b)  (((a) < (b)) ? (a) : (b))
-//La fréquence d'un caractère.
-typedef struct Frequence
-{
-    char character;
-    int freq;
-}Freq;
+    //Définition du type Freq.
+    typedef struct Frequence
+    {
+        char character;
+        int freq;
+    }Freq;
 
-//La position d'un caractère.
-typedef struct Position
-{
-    int position;
-    int number_char;
-    Freq *tab;
-}Pos;
+    //Définition du type Position.
+    typedef struct Position
+    {
+        int position;
+        int number_char;
+        Freq *tab;
+    }Pos;
 
-typedef struct Alignement
-{
-    int number;
-    Pos tab[MAX];
-}Alignement;
+    //Définition du type Alignement.
+    typedef struct Alignement
+    {
+        int number;
+        Pos tab[MAX];
+    }Alignement;
 
-Freq init_freq(char c);
-Freq increment_freq(Freq freq);
-void print_freq_char(Freq freq);
+// #####################################
+// 2. GESTION D'ALIGNEMENT
+// #####################################
 
-Pos init_position();
-Pos add_position(Pos p, char c);
-void free_tab_freq(Pos p);
-void print_position(Pos p);
+    //Initialise le type Alignement et le retourne
+    Alignement init_alignement(Sequence a, Sequence b);
 
-Alignement init_alignement(Sequence a, Sequence b);
-Alignement aligne_sequence(Alignement al, Sequence s);
-void free_tab_position(Alignement align);
-void print_alignement(Alignement align);
-Sequence get_sequence_consensus(Alignement align);
+    //Aligner une séquence et retourne le type Alignement.
+    Alignement aligne_sequence(Alignement al, Sequence s);
+
+    //Retourner la séquence consensus.
+    Sequence get_sequence_consensus(Alignement align);
+
+
+// #####################################
+// 3. AFFICHAGE
+// #####################################
+    
+    //Afficher l'alignement.
+    void print_alignement(Alignement align);
+
+// #####################################
+// 4. LIBERATION DE LA MEMOIRE
+// #####################################
+
+    //Libérer la mémoire allouer.
+    void free_tab_position(Alignement align);
+
 
 #endif

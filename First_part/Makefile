@@ -1,11 +1,11 @@
-run : first_main
-	valgrind --track-origins=yes ./first_main sequences_ADN
+run : main
+	valgrind --track-origins=yes ./main sequences_ADN
 
-first_main: first_main.o sequence.o distance.o fileManager.o family.o list.o alignement.o
-	gcc -o first_main *.o -Wall -g 
+main: main.o sequence.o distance.o fileManager.o family.o list.o alignement.o
+	gcc -o main *.o -Wall -g 
 
-first_main.o: first_main.c distance.h
-	gcc -c first_main.c -g -Wall
+main.o: main.c distance.h
+	gcc -c main.c -g -Wall
 
 sequence.o: sequence.c sequence.h
 	gcc -c sequence.c -g -Wall
@@ -16,7 +16,7 @@ distance.o: distance.c distance.h
 alignement.o: alignement.c alignement.h
 	gcc -c alignement.c -g -Wall
 
-fileManager.o: fileManager.c fileManager.h
+fileManager.o: fileManager.c fileManager.h const.h
 	gcc -c fileManager.c -g -Wall
 
 family.o: family.c family.h
@@ -26,6 +26,6 @@ list.o: list.c list.h
 	gcc -c list.c -g -Wall
 clean:
 	rm -r *.o
-	rm -r first_main
+	rm -r main
 	clear
 	ls -l
