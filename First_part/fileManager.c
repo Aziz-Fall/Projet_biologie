@@ -1,14 +1,20 @@
+// ############################################
+//                  SOMMAIRE
+// ############################################
+//
+// 1. GESTION D'UN FICHER ............ ligne   15
+// 2. GESTION D'UN DOSSIER ........... ligne  143
+// 3. GESTION D'ERREURS .............. ligne  161
+// 4. LIBERATION DE LA MEMOIRE ....... ligne  175
+//
+// #############################################
+
 #include "fileManager.h"
 
-//Affiche un message d'erreur s'il y'a des erreurs.
-void error(void *e, char *message)
-{
-    if(is_null(e))
-    {
-        fprintf(stderr, "%s:(\n", message);
-        exit(EXIT_FAILURE);
-    }
-}
+// #####################################
+// 1. GESTION D'UN FICHIER
+// #####################################
+
 //Retourne true si l'argument est null sinon false.
 Bool is_null(void *arg)
 {
@@ -80,20 +86,6 @@ int nomber_row(FILE *file)
     return nomber_rows;
 }
 
-//Ouvre un repertoire et le retourne
-DIR *open_directory(char *directory_name)
-{
-    DIR *d = opendir(directory_name);
-
-    if(is_null(d))
-    {
-        fprintf(stderr, "Cant open directory.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    return d;
-}
-
 //Initialise le nom du fichier.
 File init_file(char *names)
 {
@@ -122,7 +114,6 @@ Tab_File init_tab_file()
     return t;
 }
 
-
 //Assigne le tableau de fichier.
 Tab_File assigne_tab_file(char *name_directory)
 {
@@ -147,6 +138,42 @@ Tab_File assigne_tab_file(char *name_directory)
     free(dire);
     return tab;    
 }
+
+// #####################################
+// 2. GESTION D'UN DOSSIER
+// #####################################
+
+//Ouvre un repertoire et le retourne
+DIR *open_directory(char *directory_name)
+{
+    DIR *d = opendir(directory_name);
+
+    if(is_null(d))
+    {
+        fprintf(stderr, "Cant open directory.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return d;
+}
+
+// #####################################
+// 3. GESTION D'ERREUR 
+// #####################################
+
+//Affiche un message d'erreur s'il y'a des erreurs.
+void error(void *e, char *message)
+{
+    if(is_null(e))
+    {
+        fprintf(stderr, "%s:(\n", message);
+        exit(EXIT_FAILURE);
+    }
+}
+
+// #####################################
+// 5. LIBERATION DE LA MEMOIRE
+// #####################################
 
 //Libére la mémoire allouer pour stocker le nom d'un fichier.
 void free_file_sequence(File f)

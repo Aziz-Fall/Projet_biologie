@@ -5,7 +5,7 @@
 // 1. TYPES .......................... ligne  18
 // 2. GESTION D'UNE LISTE ............ ligne  30
 // 3. AFFICHAGE D'UNE LISTE .......... ligne  49
-// 4. LIBERATION DE LA MEMOIRE ....... ligne  55
+// 4. LIBERATION DE LA MEMOIRE ....... ligne  56
 //
 // #############################################
 
@@ -53,7 +53,7 @@
     void print_list(List l);
 
 // #####################################
-// 2. GESTION D'UNE LISTE 
+// 4. LIBERATION DE LA MEMOIRE
 // #####################################
 
     //Libérer la mémoire allouer.

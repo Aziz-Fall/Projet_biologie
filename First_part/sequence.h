@@ -39,9 +39,6 @@
     //Comparer deux séquences et retourne la valeurs de la comparaison.
     int compare_sequence(Sequence first, Sequence second);
 
-    //Afficher une séquence.
-    void print_sequence(Sequence s, int nb_nucleotides);
-
 // #####################################
 // 3. AFFICHAGE
 // #####################################

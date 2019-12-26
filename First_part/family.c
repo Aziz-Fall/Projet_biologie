@@ -1,4 +1,19 @@
+// ############################################
+//                  SOMMAIRE
+// ############################################
+//
+// 1. GESTION D'UNE FAMILLE .......... ligne   15
+// 2. AFFICHAGE ...................... ligne  144
+// 3. LIBERATION DE LA MEMOIRE ....... ligne  191
+//
+// #############################################
+
+
 #include "family.h"
+
+// #####################################
+// 1. GESTION D'UNE FAMILLE
+// #####################################
 
 //Retourne la mémoire réallouer s'il n'y pas d'erreur.
 Sequence *reallocate(Family f)
@@ -36,39 +51,6 @@ Bool is_empty_tab_family(Tab_Family tab_f)
     return ((tab_f.number_family == 0) ? true : false);
 }
 
-//Affiche une famille
-void print_family(Family f)
-{
-    if(is_empty_family(f))
-    {
-        fprintf(stderr, "Cant print members family.\n");
-        return;
-    }
-    printf("-----------------------------------------------\n");
-    printf("|        MEMBERS FAMILY       |     LENTGH    |\n");
-    printf("-----------------------------------------------\n");
-    for(int i = 0; i < f.number_element; i++)
-        print_sequence(f.s[i], f.s[i].length);
-        //printf("|   %20s      |       %d      |\n", f.s[i].tab_nucleotide, f.s[i].length);
-    printf("-----------------------------------------------\n");
-    printf("|     SEQUENCES CONSENSUS     |     LENTGH    |\n");
-    printf("-----------------------------------------------\n");
-    print_sequence(f.consensus, f.consensus.length);
-    printf("-----------------------------------------------\n");
-    printf("| Members                             %2d      |\n", f.number_element);
-    printf("| Distance d edition minimale        %2.1f      |\n", f.d_min);
-    printf("-----------------------------------------------\n");
-
-    printf("\n-----------------------------------------------------------\n\n");
-}
-
-//Affiche le contenu du tableau de famille.
-void print_tab_family(Tab_Family tab_f)
-{
-    for(int i = 0; i < tab_f.number_family; i++)
-        print_family(tab_f.f[i]);
-}
-
 //Ajoute un membre dans la famille.
 Family add_member(Family f, Sequence s)
 {
@@ -84,16 +66,6 @@ Family add_member(Family f, Sequence s)
     f.number_element++;
     
     return f;
-}
-
-//Initialiser un tableau de famille.
-Tab_Family init_tab_Family()
-{
-    Tab_Family tab_f;
-    tab_f.f = NULL;
-    tab_f.number_family = 0;
-
-    return tab_f;
 }
 
 //Ajouter une famille dans le tableau.
@@ -149,6 +121,76 @@ Tab_Family reseach_family(Tab_Family tab_f, Distance tab_distance_edition, Seque
     }
     return tab_f;
 }
+
+//Chercher et retourner La séquence consensus de chaque Famille.
+Tab_Family findSequenceConsensus(Tab_Family tab_f)
+{
+    for(int i = 0; i < tab_f.number_family; i++)
+    {
+        if(tab_f.f[i].number_element > 1)
+        {
+            Alignement al = init_alignement(tab_f.f[i].s[0], tab_f.f[i].s[1]);
+            for(int j = 2; j < tab_f.f[i].number_element; j++)
+                al = aligne_sequence(al, tab_f.f[i].s[j]);
+            
+            tab_f.f[i].consensus = get_sequence_consensus(al);
+            free_tab_position(al);
+        }
+    }
+    return tab_f;
+}
+
+// #####################################
+// 2. AFFICHAGE
+// #####################################
+
+//Affiche une famille
+void print_family(Family f)
+{
+    if(is_empty_family(f))
+    {
+        fprintf(stderr, "Cant print members family.\n");
+        return;
+    }
+    printf("-----------------------------------------------\n");
+    printf("|        MEMBERS FAMILY       |     LENTGH    |\n");
+    printf("-----------------------------------------------\n");
+    for(int i = 0; i < f.number_element; i++)
+        print_sequence(f.s[i], f.s[i].length);
+        //printf("|   %20s      |       %d      |\n", f.s[i].tab_nucleotide, f.s[i].length);
+    printf("-----------------------------------------------\n");
+    printf("|     SEQUENCES CONSENSUS     |     LENTGH    |\n");
+    printf("-----------------------------------------------\n");
+    print_sequence(f.consensus, f.consensus.length);
+    printf("-----------------------------------------------\n");
+    printf("| Members                             %2d      |\n", f.number_element);
+    printf("| Distance d edition minimale        %2.1f      |\n", f.d_min);
+    printf("-----------------------------------------------\n");
+
+    printf("\n-----------------------------------------------------------\n\n");
+}
+
+//Affiche le contenu du tableau de famille.
+void print_tab_family(Tab_Family tab_f)
+{
+    for(int i = 0; i < tab_f.number_family; i++)
+        print_family(tab_f.f[i]);
+}
+
+//Initialiser un tableau de famille.
+Tab_Family init_tab_Family()
+{
+    Tab_Family tab_f;
+    tab_f.f = NULL;
+    tab_f.number_family = 0;
+
+    return tab_f;
+}
+
+// #####################################
+// 3. LIBERATION DE LA MEMOIRE
+// #####################################
+
 //Libére la mémoire allouer pour la famille.
 void free_family(Family f)
 {
@@ -170,20 +212,3 @@ void free_tab_family(Tab_Family tab_f)
     free(tab_f.f);
 }
 
-//Chercher et retourner La séquence consensus de chaque Famille.
-Tab_Family findSequenceConsensus(Tab_Family tab_f)
-{
-    for(int i = 0; i < tab_f.number_family; i++)
-    {
-        if(tab_f.f[i].number_element > 1)
-        {
-            Alignement al = init_alignement(tab_f.f[i].s[0], tab_f.f[i].s[1]);
-            for(int j = 2; j < tab_f.f[i].number_element; j++)
-                al = aligne_sequence(al, tab_f.f[i].s[j]);
-            
-            tab_f.f[i].consensus = get_sequence_consensus(al);
-            free_tab_position(al);
-        }
-    }
-    return tab_f;
-}

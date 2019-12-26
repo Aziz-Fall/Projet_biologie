@@ -1,4 +1,18 @@
+// ############################################
+//                   SOMMAIRE
+// ############################################
+//
+// 1. GESTION D'UNE DISTANCE ......... ligne   14
+// 2. HACHAGE ........................ ligne  113
+// 3. LIBERATION DE LA MEMOIRE ....... ligne  126
+//
+// #############################################
+
 #include "distance.h"
+
+// #####################################
+// 1. GESTION D'UNE DISTANCE
+// #####################################
 
 //Initialiser et retourner la distance crée.
 D_Nucleotide creat_and_init()
@@ -36,13 +50,33 @@ double get_distance_nucleotide(char nucleotide_1, char nucleotide_2, D_Nucleotid
     return d.tab[row][col];
 }
 
-//Hache l'argument et retourne sa valeur.
-int hacher(char s) 
+//Remplire le tableau de distance d'édition.
+Distance distance(Sequence s[],  D_Nucleotide d) 
 {
-	int var_hashed = 0;
-		var_hashed += (unsigned) (s & 0x0F);  
-        var_hashed <<= 1;      
-	return ((var_hashed)%5);
+    Distance distance;
+
+   distance.list = malloc(NOMBER_SEQUENCES * sizeof(Element));
+
+    if(is_null(distance.list))
+    {
+        fprintf(stderr, "Cant creat fill array distance.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for(int row = 0; row < NOMBER_SEQUENCES; row++)
+    {
+        List l = creat_list();
+
+        for(int col = 0; col < NOMBER_SEQUENCES; col++)
+        {
+            if(row != col)
+                l = insert(l, col, first_distance(s[row], s[col], d));
+        }
+        
+        distance.list[row] = l;
+    }
+
+    return distance;
 }
 
 //Retourne la distance d'édition de deux séquences.D1
@@ -75,35 +109,24 @@ double first_distance(Sequence first, Sequence second, D_Nucleotide d)//D1
     return dist_sequence;
 }
 
-//Remplire le tableau de distance d'édition.
-Distance distance(Sequence s[],  D_Nucleotide d) 
+// #####################################
+// 2. HACHAGE
+// #####################################  
+
+//Hache l'argument et retourne sa valeur.
+int hacher(char s) 
 {
-    Distance distance;
-
-   distance.list = malloc(NOMBER_SEQUENCES * sizeof(Element));
-
-    if(is_null(distance.list))
-    {
-        fprintf(stderr, "Cant creat fill array distance.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    for(int row = 0; row < NOMBER_SEQUENCES; row++)
-    {
-        List l = creat_list();
-
-        for(int col = 0; col < NOMBER_SEQUENCES; col++)
-        {
-            if(row != col)
-                l = insert(l, col, first_distance(s[row], s[col], d));
-        }
-        
-        distance.list[row] = l;
-    }
-
-    return distance;
+	int var_hashed = 0;
+		var_hashed += (unsigned) (s & 0x0F);  
+        var_hashed <<= 1;      
+	return ((var_hashed)%5);
 }
 
+// #####################################
+// 3. LIBERATION DE LA MEMOIRE
+// #####################################
+
+//Libérer la mémoire allouer pour la liste des distances.
 void free_tab_list(Distance d)
 {
     for(int i = 0; i < NOMBER_SEQUENCES; i++)

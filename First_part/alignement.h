@@ -2,8 +2,8 @@
 //                  SOMMAIRE
 // ############################################
 //
-// 1. TYPES .......................... ligne  20
-// 2. GESTION D'ALIGNEMENT ........... ligne  46
+// 1. TYPES .......................... ligne  18
+// 2. GESTION D'ALIGNEMENT ........... ligne  44
 // 3. AFFICHAGE ...................... ligne  58
 // 4. LIBERATION DE LA MÉMOIRE ....... ligne  65
 //

@@ -1,4 +1,18 @@
+// ##############################################
+//                  SOMMAIRE
+// ##############################################
+//
+// 1. GESTION D'ALIGNEMENT ........... ligne   14
+// 2. AFFICHAGE ...................... ligne  121
+// 3. LIBERATION DE LA MÉMOIRE ....... ligne  152
+//
+// ##############################################
+
 #include "alignement.h"
+
+// #####################################
+// 1. GESTION D'ALIGNEMENT
+// #####################################
 
 //Crée et initialise la fréquence d'un caratère.
 Freq init_freq(char c)
@@ -14,12 +28,6 @@ Freq increment_freq(Freq freq)
 {
     ++(freq.freq);
     return freq;
-}
-
-//Afficher le contenu de la fréquence.
-void print_freq_char(Freq freq)
-{
-    printf("char : %c ---> freq: %2d\n", freq.character, freq.freq);
 }
 
 //Initialiser la position des caractéres et retourne une position .
@@ -51,22 +59,6 @@ Pos add_position(Pos p, char c)
     return p;   
 }
 
-//Libére la mémoire allouer pour le tableau de fréquence.
-void free_tab_freq(Pos p)
-{
-    error(p.tab, "Cant print free tab frequence");
-    free(p.tab);
-}
-
-//Afficher les caractéres d'une position 
-void print_position(Pos p)
-{
-    error(p.tab, "Cant print position");
-    for(int i = 0; i < p.number_char; i++)
-        print_freq_char(p.tab[i]);
-    printf("\n");
-}
-
 //Initialise un alignement avec deux  séquences.
 Alignement init_alignement(Sequence a, Sequence b)
 {
@@ -92,24 +84,7 @@ Alignement aligne_sequence(Alignement al, Sequence s)
     return al;
 }
 
-//Libére la mémoire allouer pour stocker les fréquences de caractères.
-void free_tab_position(Alignement align)
-{
-    for (int i = 0; i < align.number; i++)
-        free_tab_freq(align.tab[i]);  
-}
-
-void print_alignement(Alignement align)
-{
-    if(align.number == 0)
-    {
-        fprintf(stderr, "Cant print alignement:(\n");
-        return;
-    }
-    for(int i = 0; i < align.number; i++)
-        print_position(align.tab[i]);
-}
-
+//Retourner le caractére le plus fréquent dans une position.
 char maxFrequence(Pos p)
 {
     int max = p.tab[0].freq;
@@ -127,6 +102,7 @@ char maxFrequence(Pos p)
     return c;
 }
 
+//Retourner la séquence consensus d'une famille.
 Sequence get_sequence_consensus(Alignement align)
 {
     char string[MAX_LENGTH] = " ";
@@ -139,4 +115,53 @@ Sequence get_sequence_consensus(Alignement align)
     Sequence s = creat_init_sequence(string);
 
     return s;
+}
+
+// #####################################
+// 2. AFFICHAGE
+// #####################################
+
+//Afficher le contenu de la fréquence.
+void print_freq_char(Freq freq)
+{
+    printf("char : %c ---> freq: %2d\n", freq.character, freq.freq);
+}
+
+//Afficher les caractéres d'une position 
+void print_position(Pos p)
+{
+    error(p.tab, "Cant print position");
+    for(int i = 0; i < p.number_char; i++)
+        print_freq_char(p.tab[i]);
+    printf("\n");
+}
+
+//Afficher l'allignement à chaque position.
+void print_alignement(Alignement align)
+{
+    if(align.number == 0)
+    {
+        fprintf(stderr, "Cant print alignement:(\n");
+        return;
+    }
+    for(int i = 0; i < align.number; i++)
+        print_position(align.tab[i]);
+}
+
+// #####################################
+// 3. LIBERATION DE LA MEMOIRE
+// #####################################
+
+//Libére la mémoire allouer pour le tableau de fréquence.
+void free_tab_freq(Pos p)
+{
+    error(p.tab, "Cant print free tab frequence");
+    free(p.tab);
+}
+
+//Libére la mémoire allouer pour stocker les fréquences de caractères.
+void free_tab_position(Alignement align)
+{
+    for (int i = 0; i < align.number; i++)
+        free_tab_freq(align.tab[i]);  
 }

@@ -24,8 +24,24 @@ family.o: family.c family.h
 
 list.o: list.c list.h
 	gcc -c list.c -g -Wall
+
+ZIPNAME=FALL
+
 clean:
 	rm -r *.o
 	rm -r main
+	rm -f $(ZIPNAME).zip
 	clear
 	ls -l
+
+zip:
+	rm -rf $(ZIPNAME)
+	rm -f $(ZIPNAME).zip
+	mkdir $(ZIPNAME)
+	cp *.c $(ZIPNAME)
+	cp *.h $(ZIPNAME)
+	cp distance_nucleotide.txt $(ZIPNAME)
+	cp -r sequences_ADN $(ZIPNAME)
+	cp Makefile $(ZIPNAME)
+	zip -r $(ZIPNAME).zip $(ZIPNAME)
+	rm -rf $(ZIPNAME)

@@ -1,4 +1,18 @@
+// ############################################
+//                  SOMMAIRE
+// ############################################
+//
+// 1. GESTION D'UNE SEQUENCE ......... ligne 14
+// 2. AFFICHAGE ...................... ligne 75
+// 3. LIBERATION DE LA MÉMOIRE ....... ligne 90
+//
+// #############################################
+
 #include "sequence.h"
+
+// #####################################
+// 1. GESTION D'UNE SEQUENCE
+// #####################################
 
 //Crée et retourne une séquence non vide.
 Sequence creat_init_sequence(char *string)
@@ -57,6 +71,10 @@ int compare_sequence(Sequence first, Sequence second)
     return var;
 }
 
+// #####################################
+// 2. AFFICHAGE
+// #####################################
+
 //Affiche la séquence passée en argument.
 void print_sequence(Sequence s, int nb_nucleotides)
 { 
@@ -67,6 +85,10 @@ void print_sequence(Sequence s, int nb_nucleotides)
     printf("      |\n");
 
 }
+
+// #####################################
+// 3. LIBERATION DE LA MEMOIRE
+// #####################################
 
 //Libére la mémoire allouer.
 void free_tab_sequence(Sequence s[], int nb_sequence)

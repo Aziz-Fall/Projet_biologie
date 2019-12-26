@@ -1,4 +1,18 @@
+// ############################################
+//                   SOMMAIRE
+// ############################################
+//
+// 1. GESTION D'UNE LISTE ............ ligne   14
+// 2. AFFICHAGE D'UNE LISTE .......... ligne  121
+// 3. LIBERATION DE LA MEMOIRE ....... ligne  137
+//
+// #############################################
+
 #include "list.h"
+
+// #####################################
+// 1. GESTION D'UNE LISTE 
+// #####################################
 
 //Creé , initiailsé un élement et le retourne.
 Element *creat_element(int index, double d_edition)
@@ -21,18 +35,6 @@ Element *creat_element(int index, double d_edition)
 List creat_list()
 {
     return NULL;
-}
-
-//Affiche le contenu de la liste.
-void print_list(List l)
-{
-  if(is_null(l))
-      return;
-
-  printf("e: index = %2d - d_edition = %2.1f\n", l->index, l->d_edition);
-
-  print_list(l->next);
-
 }
 
 //Insérer un élement dans la liste.
@@ -82,19 +84,6 @@ List delete_element(List l)
     return l;
 }
 
-//Libére la mémoire allouer pour la liste.
-void free_list(List l)
-{
-    Element *this;
-
-    while(!is_null(l))
-    {
-        this = l;
-        l = l->next;
-        free(this);
-    }
-}
-
 //Retourne la distance d'édition minimale.
 double d_edition_min(List l)
 {
@@ -126,4 +115,37 @@ int count_distance_min(List l)
     }
     
     return var;
+}
+
+// #####################################
+// 2. AFFICHAGE D'UNE LISTE
+// #####################################
+
+//Affiche le contenu de la liste.
+void print_list(List l)
+{
+  if(is_null(l))
+      return;
+
+  printf("e: index = %2d - d_edition = %2.1f\n", l->index, l->d_edition);
+
+  print_list(l->next);
+
+}
+
+// #####################################
+// 3. LIBERATION DE LA MEMOIRE
+// #####################################
+
+//Libére la mémoire allouer pour la liste.
+void free_list(List l)
+{
+    Element *this;
+
+    while(!is_null(l))
+    {
+        this = l;
+        l = l->next;
+        free(this);
+    }
 }
