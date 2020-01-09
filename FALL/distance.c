@@ -3,8 +3,9 @@
 // ############################################
 //
 // 1. GESTION D'UNE DISTANCE ......... ligne   14
-// 2. HACHAGE ........................ ligne  113
-// 3. LIBERATION DE LA MEMOIRE ....... ligne  126
+// 2. AFFICHAGE ...................... ligne  114
+// 3. HACHAGE ........................ ligne  133
+// 4. LIBERATION DE LA MEMOIRE ....... ligne  146
 //
 // #############################################
 
@@ -110,7 +111,26 @@ double first_distance(Sequence first, Sequence second, D_Nucleotide d)//D1
 }
 
 // #####################################
-// 2. HACHAGE
+// 2. AFFICHAGE
+// ##################################### 
+
+//Afficher la distance d'édition entre les paires de séquences.
+void print_distance_edition(Distance d)
+{
+    printf("\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("|\t\t\t\t\t\t\t\t\tDISTANCE D'EDITION\t\t\t\t\t\t\t\t\t     |\n");
+    printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    for(int i = 0; i < NOMBER_SEQUENCES; i++)
+    {
+        printf("S[ %2d ]  |\t", i);
+        print_list(d.list[i]);
+        printf("\n\n");
+    }
+    printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+}
+
+// #####################################
+// 3. HACHAGE
 // #####################################  
 
 //Hache l'argument et retourne sa valeur.
@@ -123,7 +143,7 @@ int hacher(char s)
 }
 
 // #####################################
-// 3. LIBERATION DE LA MEMOIRE
+// 4. LIBERATION DE LA MEMOIRE
 // #####################################
 
 //Libérer la mémoire allouer pour la liste des distances.

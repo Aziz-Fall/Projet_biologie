@@ -127,7 +127,7 @@ void print_list(List l)
   if(is_null(l))
       return;
 
-  printf("e: index = %2d - d_edition = %2.1f\n", l->index, l->d_edition);
+  printf("[%2.1f]\t", l->d_edition);
 
   print_list(l->next);
 

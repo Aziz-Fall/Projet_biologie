@@ -2,9 +2,9 @@
 //                  SOMMAIRE
 // ############################################
 //
-// 1. GESTION D'UNE SEQUENCE ......... ligne 14
-// 2. AFFICHAGE ...................... ligne 75
-// 3. LIBERATION DE LA MÉMOIRE ....... ligne 90
+// 1. GESTION D'UNE SEQUENCE ......... ligne  14
+// 2. AFFICHAGE ...................... ligne  75
+// 3. LIBERATION DE LA MÉMOIRE ....... ligne 109
 //
 // #############################################
 
@@ -84,6 +84,25 @@ void print_sequence(Sequence s, int nb_nucleotides)
     printf("    |       %2d", nb_nucleotides);
     printf("      |\n");
 
+}
+
+//Afficher le tableau de séquences.
+void print_tab_sequences(Sequence s[])
+{
+    printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("|\t\t\t\t\t\t\t\t\t\tSEQUENCES\t\t\t\t\t\t\t\t\t     |\n");
+    printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    
+    for(int i = 0; i < NOMBER_SEQUENCES; i++)
+    {
+        if((i % 5) == 0)
+            printf("\n");
+
+        for(int j = 0; j < s[i].length; j++)
+            printf("%c", s[i].tab_nucleotide[j]);
+
+        printf("\t\t");
+    }
 }
 
 // #####################################

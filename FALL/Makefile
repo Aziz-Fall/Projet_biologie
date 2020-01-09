@@ -1,5 +1,5 @@
 run : main
-	valgrind --track-origins=yes ./main sequences_ADN
+	valgrind --track-origins=yes ./main sequences_ADN 
 
 main: main.o sequence.o distance.o fileManager.o family.o list.o alignement.o
 	gcc -o main *.o -Wall -g 
@@ -26,6 +26,7 @@ list.o: list.c list.h
 	gcc -c list.c -g -Wall
 
 ZIPNAME=FALL
+FILE=finalResult
 
 clean:
 	rm -r *.o

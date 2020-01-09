@@ -4,8 +4,9 @@
 //
 // 1. TYPES .......................... ligne  20
 // 2. GESTION D'UNE DISTANCE ......... ligne  36
-// 3. HACHAGE ........................ ligne  56
-// 4. LIBERATION DE LA MEMOIRE ....... ligne  63
+// 3. AFFICHAGE ...................... ligne  55
+// 4. HACHAGE ........................ ligne  62
+// 5. LIBERATION DE LA MEMOIRE ....... ligne  68
 //
 // #############################################
 #ifndef __DISTANCE__H__
@@ -54,15 +55,20 @@
 // 3. HACHAGE
 // #####################################  
 
+    //Afficher tous les distances d'édition entre les paires de séquences.
+    void print_distance_edition(Distance d);
+
+// #####################################
+// 4. HACHAGE
+// ##################################### 
     //Retourner la clé du caractère haché.
     int hacher(char s);
 
 // #####################################
-// 4. LIBERATION DE LA MEMOIRE
+// 5. LIBERATION DE LA MEMOIRE
 // #####################################
     
     //Libération de la mémoire allouée.
     void free_tab_list(Distance d);
-
 
 #endif

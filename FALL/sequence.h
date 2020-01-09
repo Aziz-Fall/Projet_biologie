@@ -4,7 +4,7 @@
 //
 // 1. TYPES .......................... ligne 18
 // 2. GESTION D'UNE SEQUENCE ......... ligne 30
-// 3. AFFICHAGE ...................... ligne 46
+// 3. AFFICHAGE ...................... ligne 43
 // 4. LIBERATION DE LA MÉMOIRE ....... ligne 53
 //
 // #############################################
@@ -45,6 +45,9 @@
 
     //Afficher une séquence.
     void print_sequence(Sequence s, int nb_nucleotides);
+
+    //Afficher le tableau de séquenses.
+    void print_tab_sequences(Sequence s[]);
 
 // #####################################
 // 4. LIBERATION DE LA MEMOIRE
